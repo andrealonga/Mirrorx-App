@@ -795,6 +795,17 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     document.getElementById('setupOverlay').classList.remove('hidden');
   }
+
+  // Event delegation for Safari iPad touch support
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    const btn = e.target.closest('.agent-btn');
+    if (!btn) return;
+    const oc = btn.getAttribute('onclick') || '';
+    const match = oc.match(/switchAgent\(.([\w]+).\)/);
+    if (match) switchAgent(match[1]);
+  }, { passive: false });
 });
 
 function saveApiKey() {
