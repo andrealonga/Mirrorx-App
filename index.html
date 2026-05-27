@@ -540,31 +540,40 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
       <div class="abadge badge-mgr">MGR</div>
     </div>
 
-    <div class="agent-btn sidebar-agent-locked">
+    <div class="agent-btn" onclick="switchAgent('marketing')">
       <div class="aicon">📣</div>
       <div class="ainfo">
         <div class="aname">Marketing Manager</div>
         <div class="arole">Contenuti & Social</div>
       </div>
-      <div class="abadge badge-locked">Presto</div>
+      <div class="abadge badge-mgr">MGR</div>
     </div>
 
-    <div class="agent-btn sidebar-agent-locked">
+    <div class="agent-btn" onclick="switchAgent('client')">
       <div class="aicon">👥</div>
       <div class="ainfo">
         <div class="aname">Client Manager</div>
         <div class="arole">Gestione clienti</div>
       </div>
-      <div class="abadge badge-locked">Presto</div>
+      <div class="abadge badge-mgr">MGR</div>
     </div>
 
-    <div class="agent-btn sidebar-agent-locked">
+    <div class="agent-btn" onclick="switchAgent('ops')">
       <div class="aicon">⚙️</div>
       <div class="ainfo">
         <div class="aname">Operations Manager</div>
         <div class="arole">Analytics & Report</div>
       </div>
-      <div class="abadge badge-locked">Presto</div>
+      <div class="abadge badge-mgr">MGR</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('network')">
+      <div class="aicon">🌳</div>
+      <div class="ainfo">
+        <div class="aname">Network Manager</div>
+        <div class="arole">Sub-IB & Clienti</div>
+      </div>
+      <div class="abadge badge-mgr">MGR</div>
     </div>
 
     <div class="sidebar-section" style="margin-top:8px">Team Sales</div>
@@ -578,22 +587,129 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
       <div class="abadge badge-sub">SUB</div>
     </div>
 
-    <div class="agent-btn sidebar-agent-locked">
+    <div class="agent-btn" onclick="switchAgent('outreach')">
       <div class="aicon">📧</div>
       <div class="ainfo">
         <div class="aname">Outreach Agent</div>
         <div class="arole">Messaggi & follow-up</div>
       </div>
-      <div class="abadge badge-locked">Presto</div>
+      <div class="abadge badge-sub">SUB</div>
     </div>
 
-    <div class="agent-btn sidebar-agent-locked">
+    <div class="agent-btn" onclick="switchAgent('precall')">
       <div class="aicon">📞</div>
       <div class="ainfo">
         <div class="aname">Pre-call Prep</div>
         <div class="arole">Scheda pre-chiamata</div>
       </div>
-      <div class="abadge badge-locked">Presto</div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Team Marketing</div>
+
+    <div class="agent-btn" onclick="switchAgent('content')">
+      <div class="aicon">✍️</div>
+      <div class="ainfo">
+        <div class="aname">Content Agent</div>
+        <div class="arole">Post settimanali</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('recap')">
+      <div class="aicon">📰</div>
+      <div class="ainfo">
+        <div class="aname">Recap Agent</div>
+        <div class="arole">Recap domenicale</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Team Client</div>
+
+    <div class="agent-btn" onclick="switchAgent('onboarding')">
+      <div class="aicon">👋</div>
+      <div class="ainfo">
+        <div class="aname">Onboarding Agent</div>
+        <div class="arole">Nuovi clienti</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('retention')">
+      <div class="aicon">🔔</div>
+      <div class="ainfo">
+        <div class="aname">Retention Agent</div>
+        <div class="arole">Fidelizzazione</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('report')">
+      <div class="aicon">📊</div>
+      <div class="ainfo">
+        <div class="aname">Report Agent</div>
+        <div class="arole">Report mensile clienti</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Team Operations</div>
+
+    <div class="agent-btn" onclick="switchAgent('ceo')">
+      <div class="aicon">🧠</div>
+      <div class="ainfo">
+        <div class="aname">CEO Briefing</div>
+        <div class="arole">Briefing settimanale</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('performance')">
+      <div class="aicon">📈</div>
+      <div class="ainfo">
+        <div class="aname">Performance Agent</div>
+        <div class="arole">Analisi strategia</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('commtracker')">
+      <div class="aicon">💰</div>
+      <div class="ainfo">
+        <div class="aname">Commission Tracker</div>
+        <div class="arole">Traccia commissioni</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Team Network</div>
+
+    <div class="agent-btn" onclick="switchAgent('registry')">
+      <div class="aicon">📋</div>
+      <div class="ainfo">
+        <div class="aname">Registry Agent</div>
+        <div class="arole">Aggiungi Sub-IB / Clienti</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('tree')">
+      <div class="aicon">🌲</div>
+      <div class="ainfo">
+        <div class="aname">Tree Agent</div>
+        <div class="arole">Visualizza rete IB</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
+    </div>
+
+    <div class="agent-btn" onclick="switchAgent('commnet')">
+      <div class="aicon">💸</div>
+      <div class="ainfo">
+        <div class="aname">Commission Net</div>
+        <div class="arole">Commissioni rete</div>
+      </div>
+      <div class="abadge badge-sub">SUB</div>
     </div>
   </div>
 
@@ -707,6 +823,16 @@ function updateApiStatus(ok) {
   document.getElementById('apiStatusText').textContent = ok ? 'API attiva' : 'API non configurata';
 }
 
+// ── Google Sheets Script URL ──
+const NETWORK_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDbQfzSmifhMIZMgosZ6_-W8Oi-rkh1LDXoIp-qARasbb4e8yBfSGtSEm-_3H-FnGiWg/exec';
+
+// ── Network helpers ──
+async function networkGet(params) {
+  const url = NETWORK_SCRIPT_URL + '?' + new URLSearchParams(params);
+  const r = await fetch(url);
+  return await r.json();
+}
+
 // ── Agent configs ──
 const agents = {
   sales: {
@@ -788,10 +914,78 @@ function switchAgent(agentId) {
 
   const welcomes = {
     sales: `Ciao! Sono il tuo <strong>Sales Manager</strong> di MirrorX.<br><br>Gestisco tutto il funnel di acquisizione. Posso qualificare lead, aiutarti con l'outreach o prepararti per una chiamata. Come posso aiutarti?`,
-    qualifier: `Ciao! Sono il <strong>Lead Qualifier</strong> di MirrorX.<br><br>Il mio compito è capire se un prospect è adatto a MirrorX e quanto è "caldo". Dimmi il nome del prospect o descrivimi la situazione — inizierò a fare le domande giuste.`
+    qualifier: `Ciao! Sono il <strong>Lead Qualifier</strong> di MirrorX.<br><br>Il mio compito è capire se un prospect è adatto a MirrorX e quanto è "caldo". Dimmi il nome del prospect o descrivimi la situazione — inizierò a fare le domande giuste.`,
+    marketing: `Ciao! Sono il tuo <strong>Marketing Manager</strong> di MirrorX.<br><br>Mi occupo di tutti i contenuti e la presenza su Instagram. Posso generare post pronti, gestire il piano editoriale o attivare il Content Agent per il post di questa settimana.<br><br>Cosa facciamo oggi?`,
+    content: `Ciao! Sono il <strong>Content Agent</strong> di MirrorX.<br><br>Genero post Instagram pronti da pubblicare. Dimmi per quale giorno vuoi il post:<br>📅 <strong>Martedì</strong> — Come funziona MirrorX<br>📅 <strong>Giovedì</strong> — Educazione forex<br>📅 <strong>Domenica</strong> — Recap settimanale`,
+    recap: `Ciao! Sono il <strong>Recap Agent</strong> di MirrorX.<br><br>Genero il recap domenicale per Instagram. Dimmi i dati della settimana e creo la caption pronta da pubblicare.<br><br>Iniziamo: com'è andata questa settimana con la strategia?`,
+    client: `Ciao! Sono il tuo <strong>Client Manager</strong> di MirrorX.<br><br>Mi occupo di tutti i clienti attivi — benvenuto ai nuovi, report mensili e prevenzione abbandono. Hai un nuovo cliente da accogliere o un cliente con problemi?`,
+    onboarding: `Ciao! Sono l'<strong>Onboarding Agent</strong> di MirrorX.<br><br>Accolgo i nuovi clienti e li guido step-by-step. Dimmi il nome del nuovo cliente e qualche info su di lui — genero subito il messaggio di benvenuto personalizzato.`,
+    retention: `Ciao! Sono il <strong>Retention Agent</strong> di MirrorX.<br><br>Mi occupo di prevenire l'abbandono dei clienti. Descrivimi il cliente che ti preoccupa — analizzo la situazione e genero il messaggio di supporto giusto.`,
+    ops: `Ciao! Sono il tuo <strong>Operations Manager</strong> di MirrorX.<br><br>Monitoro performance, commissioni e analytics. Posso calcolare il tuo revenue, analizzare le performance o generare il briefing CEO del lunedì. Come posso aiutarti?`,
+    ceo: `Ciao! Sono il <strong>CEO Briefing Agent</strong> di MirrorX.<br><br>Ogni lunedì genero il briefing completo con tutto il quadro della settimana. Dimmi i dati e preparo il tuo report executive in pochi secondi.`,
+    network: `Ciao! Sono il tuo <strong>Network Manager</strong> di MirrorX.<br><br>Gestisco tutta la rete di Sub-IB e clienti collegata a Google Sheets in tempo reale.<br><br>Posso aggiungere Sub-IB, registrare clienti, visualizzare l'albero della rete e calcolare le commissioni. Cosa vuoi fare?`,
+    registry: `Ciao! Sono il <strong>Registry Agent</strong> di MirrorX.<br><br>Mi occupo di registrare nuovi Sub-IB e clienti direttamente su Google Sheets. Vuoi aggiungere un <strong>Sub-IB</strong> o un <strong>Cliente</strong>?`,
+    tree: `Ciao! Sono il <strong>Tree Agent</strong> di MirrorX.<br><br>Visualizzo la tua rete IB completa con tutti i livelli. Carico subito i dati da Google Sheets...`,
+    commnet: `Ciao! Sono il <strong>Commission Net Agent</strong> di MirrorX.<br><br>Calcolo le commissioni di tutta la rete IB. Dimmi quanti lotti sono stati smossi questa settimana e da quali conti.`,
+    outreach: `Ciao! Sono l'<strong>Outreach Agent</strong> di MirrorX.<br><br>Creo messaggi personalizzati per contattare i tuoi prospect — iniziale, follow-up 1 e follow-up 2. Dimmi chi devi contattare e su quale canale!`,
+    precall: `Ciao! Sono il <strong>Pre-call Prep Agent</strong> di MirrorX.<br><br>Ti preparo la scheda completa prima di ogni chiamata con un prospect — obiezioni, punti di forza, domande chiave. Dimmi tutto quello che sai sul prospect!`,
+    report: `Ciao! Sono il <strong>Report Agent</strong> di MirrorX.<br><br>Genero report mensili personalizzati per ogni cliente. Dimmi il nome del cliente e i dati del mese — preparo il report pronto da inviare!`,
+    performance: `Ciao! Sono il <strong>Performance Agent</strong> di MirrorX.<br><br>Analizzo le performance settimanali della strategia. Dimmi i dati della settimana e preparo l'analisi completa!`,
+    commtracker: `Ciao! Sono il <strong>Commission Tracker</strong> di MirrorX.<br><br>Calcolo tutte le commissioni del mese — abbonamenti + performance. Dimmi quanti clienti attivi hai e i profitti netti generati!`
   };
 
   addMessage('agent', welcomes[agentId], a.name, a.icon);
+
+  // Auto-load network data for tree agent
+  if (agentId === 'tree') {
+    setTimeout(() => loadNetworkData(), 500);
+  }
+}
+
+async function loadNetworkData() {
+  try {
+    const data = await networkGet({});
+    const ibs = data.ibs || [];
+    const clients = data.clients || [];
+    
+    if (ibs.length === 0 && clients.length === 0) {
+      addMessage('agent', 'La rete è vuota. Vai sul <strong>Registry Agent</strong> per aggiungere i tuoi primi Sub-IB e clienti!', 'Tree Agent', '🌲');
+      return;
+    }
+
+    let tree = '<strong>🌳 La tua rete MirrorX</strong><br><br>';
+    tree += '👑 <strong>CEO (Tu)</strong> — 30€/lotto<br>';
+    
+    const rootIBs = ibs.filter(ib => ib['Parent ID'] === 'ROOT');
+    rootIBs.forEach(ib => {
+      const ibClients = clients.filter(c => c['IB'] === ib['ID']);
+      tree += `&nbsp;&nbsp;└── 🎯 <strong>${ib['Nome']}</strong> — ${ib['Commissione']}€/lotto — ${ibClients.length} clienti<br>`;
+      const subIBs = ibs.filter(sub => sub['Parent ID'] === ib['ID']);
+      subIBs.forEach(sub => {
+        const subClients = clients.filter(c => c['IB'] === sub['ID']);
+        tree += `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 🎯 <strong>${sub['Nome']}</strong> — ${sub['Commissione']}€/lotto — ${subClients.length} clienti<br>`;
+      });
+    });
+
+    tree += `<br><strong>Totale Sub-IB:</strong> ${ibs.length} | <strong>Totale Clienti:</strong> ${clients.length}`;
+    addMessage('agent', tree, 'Tree Agent', '🌲');
+  } catch(err) {
+    addMessage('agent', 'Errore nel caricare i dati della rete. Riprova.', 'Tree Agent', '🌲');
+  }
+}
+
+// Handle "SALVO ORA" keyword from Registry Agent
+async function handleRegistrySave(msg) {
+  const history = conversationHistory;
+  const allText = history.map(m => m.content).join(' ');
+  
+  // Extract data from conversation - simple pattern matching
+  const nomeMatch = allText.match(/nome[:\s]+([A-Za-zÀ-ÿ\s]+?)(?=email|telefono|,|\n)/i);
+  const emailMatch = allText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  const telMatch = allText.match(/(\+?[\d\s]{8,15})/);
+  const commMatch = allText.match(/(\d+)[€$]?\/lotto/i);
+  
+  return { nome: nomeMatch?.[1]?.trim(), email: emailMatch?.[0], tel: telMatch?.[1]?.trim(), comm: commMatch?.[1] };
 }
 
 // ── Send message ──
