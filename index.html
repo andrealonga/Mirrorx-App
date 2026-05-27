@@ -96,9 +96,16 @@ html, body {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 12px;
   border-radius: 12px;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: background 0.15s;
   border: 1px solid transparent;
+  -webkit-tap-highlight-color: rgba(200,168,74,0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.agent-btn * {
+  pointer-events: none;
 }
 .agent-btn:hover { background: rgba(237,232,223,0.04); }
 .agent-btn.active {
