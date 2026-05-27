@@ -614,6 +614,15 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
   <div class="sidebar">
     <div class="sidebar-section">I tuoi Manager</div>
 
+    <button class="agent-btn" type="button" onclick="switchAgent('cos')" style="background:rgba(200,168,74,0.08); border:1px solid rgba(200,168,74,0.2); margin-bottom:8px;">
+      <div class="aicon">🤵</div>
+      <div class="ainfo">
+        <div class="aname">Chief of Staff</div>
+        <div class="arole">Parla con lui per tutto</div>
+      </div>
+      <div class="abadge" style="background:rgba(200,168,74,0.15);color:var(--gold2);border:1px solid rgba(200,168,74,0.3);font-family:Space Mono,monospace;font-size:8px;padding:3px 8px;border-radius:100px;">CoS</div>
+    </button>
+
     <button class="agent-btn active" type="button" onclick="switchAgent('sales')">
       <div class="aicon">🎯</div>
       <div class="ainfo">
@@ -835,6 +844,11 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
 
       <div class="dash-section-title">Accesso rapido agenti</div>
       <div class="dash-agents">
+        <div class="dash-agent" onclick="switchAgent('cos')" style="background:rgba(200,168,74,0.07);border-color:rgba(200,168,74,0.2);">
+          <div class="dash-agent-icon">🤵</div>
+          <div><div class="dash-agent-name" style="color:var(--gold2);">Chief of Staff</div><div class="dash-agent-desc">Parla con lui per qualsiasi cosa — gestisce tutto</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
         <div class="dash-agent" onclick="switchAgent('sales')">
           <div class="dash-agent-icon">🎯</div>
           <div><div class="dash-agent-name">Sales Manager</div><div class="dash-agent-desc">Qualifica lead, outreach, pre-call</div></div>
@@ -921,7 +935,7 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
 
 <script>
 // ── State ──
-let currentAgent = 'sales';
+let currentAgent = 'cos';
 let isLoading = false;
 let conversationHistory = [];
 let apiKey = localStorage.getItem('mx_api_key') || '';
@@ -966,6 +980,7 @@ function showDashboard() {
   document.getElementById("agentView").style.display = "none";
   document.getElementById("inputArea").style.display = "none";
   document.querySelectorAll(".agent-btn").forEach(b => b.classList.remove("active"));
+  // No active state on dashboard
   updateDashboardKpis();
   updateDashGreeting();
   checkMondayBriefing();
@@ -1238,6 +1253,45 @@ Quando dispatchi un task a un agente, dillo chiaramente.`
     desc: "Calcola le commissioni dell'intera rete IB",
     mode: 'Sub-agente · Network Team', sub: 'Supervisore: Network Manager',
     systemPrompt: `Sei il Commission Net Agent di MirrorX. Calcoli commissioni della rete IB. CEO: 30€/lotto sui clienti diretti. Sub-IB: commissione concordata sui loro clienti. Chiedi: lotti smossi questa settimana per quali conti. Genera report commissioni dettagliato per ogni IB e totale rete. Rispondi in italiano con numeri chiari.`
+  },
+  
+  cos: {
+    icon: '🤵', name: 'Chief of Staff',
+    desc: 'Il tuo unico interlocutore — smista tutto ai manager giusti',
+    mode: 'Chief of Staff · Livello 0', sub: 'Coordina tutti i Manager',
+    systemPrompt: `Sei il Chief of Staff di MirrorX, un servizio di copy trading sul forex.
+
+SEI IL PUNTO DI INGRESSO UNICO per il CEO (l'utente). Ricevi qualsiasi richiesta e la gestisci o la smistate al manager giusto.
+
+STRUTTURA AZIENDALE:
+- Sales Manager: qualificare lead, outreach, pre-call prep, acquisizione clienti
+- Marketing Manager: post Instagram, piano editoriale, recap domenicale
+- Client Manager: onboarding nuovi clienti, report mensili, retention
+- Operations Manager: performance strategia, commissioni, CEO briefing
+- Network Manager: Sub-IB, albero rete, commissioni rete, Google Sheets
+
+CONTESTO MIRRORX:
+- Copy trading automatico su forex
+- Performance: +78% netto da agosto 2024
+- Costo: €10/mese + 20% profitti | Capitale minimo: €1.000
+- L'utente è il CEO/fondatore IB
+
+COME LAVORI:
+1. Capisci cosa vuole il CEO
+2. Identifichi quale manager/agente deve gestire il task
+3. Esegui il task direttamente simulando la risposta di quell'agente
+4. Indichi sempre quale agente hai coinvolto con: [→ Sales Manager] o simili
+5. Se il task è complesso, coordini più agenti in sequenza
+
+ESEMPI:
+- "Qualifica Marco 25 anni €5k" → [→ Lead Qualifier] + esegui qualifica
+- "Crea post martedì" → [→ Content Agent] + genera post completo
+- "Nuovo cliente Luigi" → [→ Onboarding Agent] + genera benvenuto
+- "Come va il mese?" → [→ Operations Manager] + chiedi dati e analizza
+- "Aggiungi sub-IB Mario" → [→ Registry Agent] + raccogli dati
+
+Rispondi sempre in italiano. Sii efficiente e orientato all'azione.
+Quando deleghi, esegui direttamente — non dire solo "lo passo al manager".`
   }
 };
 
@@ -1294,6 +1348,7 @@ function switchAgent(agentId) {
   }
 
   const welcomes = {
+    cos: `Ciao! Sono il tuo <strong>Chief of Staff</strong> 🤵<br><br>Sono il tuo unico punto di contatto — dimmi quello che vuoi fare e mi occupo io di coordinare i manager giusti.<br><br>Puoi dirmi qualsiasi cosa in modo naturale:<br>• <em>"Qualifica Marco, 25 anni, ha €5.000"</em><br>• <em>"Crea il post di martedì"</em><br>• <em>"Aggiungi sub-IB Luigi Rossi"</em><br>• <em>"Come va il mese?"</em><br><br>Cosa devo fare per te oggi?`,
     sales: `Ciao! Sono il tuo <strong>Sales Manager</strong> di MirrorX.<br><br>Gestisco tutto il funnel di acquisizione. Posso qualificare lead, aiutarti con l'outreach o prepararti per una chiamata. Come posso aiutarti?`,
     qualifier: `Ciao! Sono il <strong>Lead Qualifier</strong> di MirrorX.<br><br>Il mio compito è capire se un prospect è adatto a MirrorX e quanto è "caldo". Dimmi il nome del prospect o descrivimi la situazione — inizierò a fare le domande giuste.`,
     marketing: `Ciao! Sono il tuo <strong>Marketing Manager</strong> di MirrorX.<br><br>Mi occupo di tutti i contenuti e la presenza su Instagram. Posso generare post pronti, gestire il piano editoriale o attivare il Content Agent per il post di questa settimana.<br><br>Cosa facciamo oggi?`,
