@@ -895,6 +895,7 @@ Una domanda alla volta. Rispondi in italiano.`
 
 // ── Switch agent ──
 function switchAgent(agentId) {
+  if (!agents[agentId]) { console.log('Agent not found:', agentId); return; }
   currentAgent = agentId;
   conversationHistory = [];
   const a = agents[agentId];
@@ -905,8 +906,11 @@ function switchAgent(agentId) {
   document.getElementById('agentSub').textContent = a.sub;
 
   // Update sidebar active state
-  document.querySelectorAll('.agent-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.agent-btn').forEach(b => {
+    b.classList.remove('active');
+    const oc = b.getAttribute('onclick') || '';
+    if (oc.includes(agentId)) b.classList.add('active');
+  });
 
   // Clear messages and add welcome
   const msgs = document.getElementById('messages');
