@@ -92,19 +92,24 @@ html, body {
   padding: 12px 10px 6px;
 }
 
-.agent-btn {
+button.agent-btn {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 12px;
   border-radius: 12px;
   cursor: pointer !important;
   transition: background 0.15s;
   border: 1px solid transparent;
+  background: none;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
   -webkit-tap-highlight-color: rgba(200,168,74,0.2);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-.agent-btn * {
+button.agent-btn * {
   pointer-events: none;
 }
 .agent-btn:hover { background: rgba(237,232,223,0.04); }
@@ -538,186 +543,186 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
   <div class="sidebar">
     <div class="sidebar-section">I tuoi Manager</div>
 
-    <div class="agent-btn active" onclick="switchAgent('sales')">
+    <button class="agent-btn active" type="button" onclick="switchAgent('sales')">
       <div class="aicon">🎯</div>
       <div class="ainfo">
         <div class="aname">Sales Manager</div>
         <div class="arole">Acquisizione clienti</div>
       </div>
       <div class="abadge badge-mgr">MGR</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('marketing')">
+    <button class="agent-btn" type="button" onclick="switchAgent('marketing')">
       <div class="aicon">📣</div>
       <div class="ainfo">
         <div class="aname">Marketing Manager</div>
         <div class="arole">Contenuti & Social</div>
       </div>
       <div class="abadge badge-mgr">MGR</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('client')">
+    <button class="agent-btn" type="button" onclick="switchAgent('client')">
       <div class="aicon">👥</div>
       <div class="ainfo">
         <div class="aname">Client Manager</div>
         <div class="arole">Gestione clienti</div>
       </div>
       <div class="abadge badge-mgr">MGR</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('ops')">
+    <button class="agent-btn" type="button" onclick="switchAgent('ops')">
       <div class="aicon">⚙️</div>
       <div class="ainfo">
         <div class="aname">Operations Manager</div>
         <div class="arole">Analytics & Report</div>
       </div>
       <div class="abadge badge-mgr">MGR</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('network')">
+    <button class="agent-btn" type="button" onclick="switchAgent('network')">
       <div class="aicon">🌳</div>
       <div class="ainfo">
         <div class="aname">Network Manager</div>
         <div class="arole">Sub-IB & Clienti</div>
       </div>
       <div class="abadge badge-mgr">MGR</div>
-    </div>
+    </button>
 
     <div class="sidebar-section" style="margin-top:8px">Team Sales</div>
 
-    <div class="agent-btn" onclick="switchAgent('qualifier')">
+    <button class="agent-btn" type="button" onclick="switchAgent('qualifier')">
       <div class="aicon">🤖</div>
       <div class="ainfo">
         <div class="aname">Lead Qualifier</div>
         <div class="arole">Qualifica i prospect</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('outreach')">
+    <button class="agent-btn" type="button" onclick="switchAgent('outreach')">
       <div class="aicon">📧</div>
       <div class="ainfo">
         <div class="aname">Outreach Agent</div>
         <div class="arole">Messaggi & follow-up</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('precall')">
+    <button class="agent-btn" type="button" onclick="switchAgent('precall')">
       <div class="aicon">📞</div>
       <div class="ainfo">
         <div class="aname">Pre-call Prep</div>
         <div class="arole">Scheda pre-chiamata</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
     <div class="sidebar-section" style="margin-top:8px">Team Marketing</div>
 
-    <div class="agent-btn" onclick="switchAgent('content')">
+    <button class="agent-btn" type="button" onclick="switchAgent('content')">
       <div class="aicon">✍️</div>
       <div class="ainfo">
         <div class="aname">Content Agent</div>
         <div class="arole">Post settimanali</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('recap')">
+    <button class="agent-btn" type="button" onclick="switchAgent('recap')">
       <div class="aicon">📰</div>
       <div class="ainfo">
         <div class="aname">Recap Agent</div>
         <div class="arole">Recap domenicale</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
     <div class="sidebar-section" style="margin-top:8px">Team Client</div>
 
-    <div class="agent-btn" onclick="switchAgent('onboarding')">
+    <button class="agent-btn" type="button" onclick="switchAgent('onboarding')">
       <div class="aicon">👋</div>
       <div class="ainfo">
         <div class="aname">Onboarding Agent</div>
         <div class="arole">Nuovi clienti</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('retention')">
+    <button class="agent-btn" type="button" onclick="switchAgent('retention')">
       <div class="aicon">🔔</div>
       <div class="ainfo">
         <div class="aname">Retention Agent</div>
         <div class="arole">Fidelizzazione</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('report')">
+    <button class="agent-btn" type="button" onclick="switchAgent('report')">
       <div class="aicon">📊</div>
       <div class="ainfo">
         <div class="aname">Report Agent</div>
         <div class="arole">Report mensile clienti</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
     <div class="sidebar-section" style="margin-top:8px">Team Operations</div>
 
-    <div class="agent-btn" onclick="switchAgent('ceo')">
+    <button class="agent-btn" type="button" onclick="switchAgent('ceo')">
       <div class="aicon">🧠</div>
       <div class="ainfo">
         <div class="aname">CEO Briefing</div>
         <div class="arole">Briefing settimanale</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('performance')">
+    <button class="agent-btn" type="button" onclick="switchAgent('performance')">
       <div class="aicon">📈</div>
       <div class="ainfo">
         <div class="aname">Performance Agent</div>
         <div class="arole">Analisi strategia</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('commtracker')">
+    <button class="agent-btn" type="button" onclick="switchAgent('commtracker')">
       <div class="aicon">💰</div>
       <div class="ainfo">
         <div class="aname">Commission Tracker</div>
         <div class="arole">Traccia commissioni</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
     <div class="sidebar-section" style="margin-top:8px">Team Network</div>
 
-    <div class="agent-btn" onclick="switchAgent('registry')">
+    <button class="agent-btn" type="button" onclick="switchAgent('registry')">
       <div class="aicon">📋</div>
       <div class="ainfo">
         <div class="aname">Registry Agent</div>
         <div class="arole">Aggiungi Sub-IB / Clienti</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('tree')">
+    <button class="agent-btn" type="button" onclick="switchAgent('tree')">
       <div class="aicon">🌲</div>
       <div class="ainfo">
         <div class="aname">Tree Agent</div>
         <div class="arole">Visualizza rete IB</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
 
-    <div class="agent-btn" onclick="switchAgent('commnet')">
+    <button class="agent-btn" type="button" onclick="switchAgent('commnet')">
       <div class="aicon">💸</div>
       <div class="ainfo">
         <div class="aname">Commission Net</div>
         <div class="arole">Commissioni rete</div>
       </div>
       <div class="abadge badge-sub">SUB</div>
-    </div>
+    </button>
   </div>
 
   <!-- MAIN CHAT -->
