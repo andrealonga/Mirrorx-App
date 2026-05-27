@@ -830,7 +830,14 @@ async function sendMessage(text) {
     });
 
     const data = await response.json();
-    const reply = data.content?.[0]?.text || 'Errore nella risposta.';
+    let reply;
+    if (data.error) {
+      reply = '⚠ API Error: ' + data.error.type + ' — ' + data.error.message;
+    } else if (data.content && data.content[0]) {
+      reply = data.content[0].text;
+    } else {
+      reply = '⚠ Risposta: ' + JSON.stringify(data).substring(0, 300);
+    }
 
     conversationHistory.push({ role: 'assistant', content: reply });
 
