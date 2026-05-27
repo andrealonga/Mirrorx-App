@@ -878,7 +878,7 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
     </div>
 
     <!-- AGENT VIEW -->
-    <div id="agentView" class="hidden" style="flex-direction:column; flex:1; overflow:hidden;">
+    <div id="agentView" style="display:none; flex-direction:column; flex:1; overflow:hidden; min-height:0;">
     <div class="agent-header">
       <div class="agent-avatar" id="agentAvatar">🎯</div>
       <div class="agent-header-info">
@@ -912,23 +912,23 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
       </div>
     </div>
 
-    </div><!-- end agentView -->
     <div class="input-area" id="inputArea">
       <div class="quick-prompts" id="quickPrompts">
-        <div class="qp" onclick="sendQuick(this)">🤖 Qualifica un lead</div>
-        <div class="qp" onclick="sendQuick(this)">📧 Crea un messaggio outreach</div>
-        <div class="qp" onclick="sendQuick(this)">📊 Come va il funnel?</div>
-        <div class="qp" onclick="sendQuick(this)">💡 Strategie per trovare clienti</div>
+        <div class="qp" onclick="sendQuick(this)" ontouchend="event.preventDefault(); sendQuick(this);">🤖 Qualifica un lead</div>
+        <div class="qp" onclick="sendQuick(this)" ontouchend="event.preventDefault(); sendQuick(this);">📧 Crea un messaggio outreach</div>
+        <div class="qp" onclick="sendQuick(this)" ontouchend="event.preventDefault(); sendQuick(this);">📊 Come va il funnel?</div>
+        <div class="qp" onclick="sendQuick(this)" ontouchend="event.preventDefault(); sendQuick(this);">💡 Strategie per trovare clienti</div>
       </div>
       <div class="input-row">
         <div class="input-wrap">
           <textarea id="input" placeholder="Scrivi al Sales Manager..." rows="1"
             onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
         </div>
-        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()" ontouchend="event.preventDefault(); sendMessage();">➤</button>
       </div>
       <div class="input-hint">Enter per inviare · Shift+Enter per andare a capo</div>
     </div>
+    </div><!-- end agentView -->
   </div>
 
 </div>
@@ -978,7 +978,6 @@ function showDashboard() {
   document.getElementById("dashboardView").style.display = "flex";
   document.getElementById("dashboardView").style.flexDirection = "column";
   document.getElementById("agentView").style.display = "none";
-  document.getElementById("inputArea").style.display = "none";
   document.querySelectorAll(".agent-btn").forEach(b => b.classList.remove("active"));
   // No active state on dashboard
   updateDashboardKpis();
@@ -1068,6 +1067,27 @@ window.addEventListener('DOMContentLoaded', () => {
     const match = oc.match(/switchAgent\(.([\w]+).\)/);
     if (match) switchAgent(match[1]);
   }, { passive: false });
+
+  // Touch for send button
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn) {
+    sendBtn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      sendMessage();
+    }, { passive: false });
+  }
+
+  // Touch for input area - ensure keyboard works
+  const input = document.getElementById('input');
+  if (input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  }
 });
 
 function saveApiKey() {
@@ -1310,7 +1330,6 @@ function switchAgent(agentId) {
   document.getElementById("agentView").style.flexDirection = "column";
   document.getElementById("agentView").style.flex = "1";
   document.getElementById("agentView").style.overflow = "hidden";
-  document.getElementById("inputArea").style.display = "block";
 
   currentAgent = agentId;
   // Load saved conversation
