@@ -372,6 +372,76 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(237,232,223,0.1); border-radius: 2px; }
 
+/* Dashboard */
+.dashboard {
+  padding: 20px 28px;
+  display: flex; flex-direction: column; gap: 16px;
+  overflow-y: auto; flex: 1;
+}
+.dash-greeting {
+  font-family: "Syne", sans-serif;
+  font-size: 22px; font-weight: 800;
+  color: var(--white); margin-bottom: 4px;
+}
+.dash-date { font-size: 12px; color: var(--dim); }
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.dash-card {
+  background: rgba(237,232,223,0.04);
+  border: 1px solid rgba(237,232,223,0.08);
+  border-radius: 16px; padding: 18px;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.dash-card:hover { border-color: rgba(237,232,223,0.15); }
+.dash-card.gold { border-color: rgba(200,168,74,0.2); background: rgba(200,168,74,0.05); }
+.dash-icon { font-size: 22px; margin-bottom: 8px; }
+.dash-val {
+  font-family: "Syne", sans-serif;
+  font-size: 26px; font-weight: 800; color: var(--white);
+}
+.dash-val.green { color: var(--grlt); }
+.dash-val.gold { color: var(--gold2); }
+.dash-lbl { font-size: 11px; color: var(--dim); margin-top: 3px; }
+.dash-section-title {
+  font-family: "Space Mono", monospace;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(237,232,223,0.25); margin-top: 4px;
+}
+.dash-agents {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dash-agent {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(237,232,223,0.03);
+  border: 1px solid rgba(237,232,223,0.07);
+  border-radius: 12px; padding: 12px 16px;
+  cursor: pointer; transition: background 0.15s;
+}
+.dash-agent:hover { background: rgba(237,232,223,0.06); }
+.dash-agent-icon { font-size: 18px; }
+.dash-agent-name {
+  font-family: "Syne", sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--white);
+}
+.dash-agent-desc { font-size: 11px; color: var(--dim); margin-top: 1px; }
+.dash-agent-arrow { margin-left: auto; color: rgba(237,232,223,0.2); font-size: 14px; }
+.briefing-card {
+  background: rgba(200,168,74,0.07);
+  border: 1px solid rgba(200,168,74,0.2);
+  border-radius: 16px; padding: 18px;
+}
+.briefing-title {
+  font-family: "Syne", sans-serif;
+  font-size: 14px; font-weight: 800; color: var(--gold2);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+.briefing-text { font-size: 12px; color: var(--dim); line-height: 1.65; }
+.hidden { display: none !important; }
+
 /* ── API Key Setup Overlay ── */
 .setup-overlay {
   position: fixed; inset: 0; z-index: 999;
@@ -532,6 +602,7 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
       <div class="status-dot"></div>
       Sistema attivo
     </div>
+    <button class="settings-btn" onclick="showDashboard()" title="Dashboard" style="opacity:0.6; font-size:18px;">🏠</button>
     <div class="api-status" id="apiStatus">
       <div class="api-dot no" id="apiDot"></div>
       <span id="apiStatusText">API non configurata</span>
@@ -727,6 +798,73 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
 
   <!-- MAIN CHAT -->
   <div class="main">
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="dashboard">
+      <div>
+        <div class="dash-greeting" id="dashGreeting">Buongiorno 👋</div>
+        <div class="dash-date" id="dashDate"></div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-card gold" onclick="showKpiInput('clienti')">
+          <div class="dash-icon">👥</div>
+          <div class="dash-val" id="kpiClienti">—</div>
+          <div class="dash-lbl">Clienti attivi</div>
+        </div>
+        <div class="dash-card" onclick="showKpiInput('revenue')">
+          <div class="dash-icon">💰</div>
+          <div class="dash-val gold" id="kpiRevenue">—</div>
+          <div class="dash-lbl">Revenue mese</div>
+        </div>
+        <div class="dash-card" onclick="showKpiInput('lead')">
+          <div class="dash-icon">🎯</div>
+          <div class="dash-val" id="kpiLead">—</div>
+          <div class="dash-lbl">Lead in pipeline</div>
+        </div>
+        <div class="dash-card" onclick="showKpiInput('performance')">
+          <div class="dash-icon">📈</div>
+          <div class="dash-val green" id="kpiPerf">+78%</div>
+          <div class="dash-lbl">Performance totale</div>
+        </div>
+      </div>
+
+      <div id="briefingBox" class="briefing-card hidden">
+        <div class="briefing-title">🧠 CEO Briefing — Lunedì</div>
+        <div class="briefing-text" id="briefingText">Caricamento briefing...</div>
+      </div>
+
+      <div class="dash-section-title">Accesso rapido agenti</div>
+      <div class="dash-agents">
+        <div class="dash-agent" onclick="switchAgent('sales')">
+          <div class="dash-agent-icon">🎯</div>
+          <div><div class="dash-agent-name">Sales Manager</div><div class="dash-agent-desc">Qualifica lead, outreach, pre-call</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
+        <div class="dash-agent" onclick="switchAgent('marketing')">
+          <div class="dash-agent-icon">📣</div>
+          <div><div class="dash-agent-name">Marketing Manager</div><div class="dash-agent-desc">Post Instagram, recap domenicale</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
+        <div class="dash-agent" onclick="switchAgent('client')">
+          <div class="dash-agent-icon">👥</div>
+          <div><div class="dash-agent-name">Client Manager</div><div class="dash-agent-desc">Onboarding, report, retention</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
+        <div class="dash-agent" onclick="switchAgent('ops')">
+          <div class="dash-agent-icon">⚙️</div>
+          <div><div class="dash-agent-name">Operations Manager</div><div class="dash-agent-desc">Performance, commissioni, briefing</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
+        <div class="dash-agent" onclick="switchAgent('network')">
+          <div class="dash-agent-icon">🌳</div>
+          <div><div class="dash-agent-name">Network Manager</div><div class="dash-agent-desc">Sub-IB, clienti, commissioni rete</div></div>
+          <div class="dash-agent-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENT VIEW -->
+    <div id="agentView" class="hidden" style="flex-direction:column; flex:1; overflow:hidden;">
     <div class="agent-header">
       <div class="agent-avatar" id="agentAvatar">🎯</div>
       <div class="agent-header-info">
@@ -753,14 +891,15 @@ textarea::placeholder { color: rgba(237,232,223,0.25); }
           <div class="dispatch-card">
             <div class="dc-title">⚡ Agenti disponibili</div>
             <div class="dispatch-item"><span class="di-icon">🤖</span><span class="di-name">Lead Qualifier</span><span class="di-status">● Attivo</span></div>
-            <div class="dispatch-item"><span class="di-icon">📧</span><span class="di-name">Outreach Agent</span><span class="di-status" style="color:rgba(237,232,223,0.25)">○ Presto</span></div>
-            <div class="dispatch-item"><span class="di-icon">📞</span><span class="di-name">Pre-call Prep</span><span class="di-status" style="color:rgba(237,232,223,0.25)">○ Presto</span></div>
+            <div class="dispatch-item"><span class="di-icon">📧</span><span class="di-name">Outreach Agent</span><span class="di-status">● Attivo</span></div>
+            <div class="dispatch-item"><span class="di-icon">📞</span><span class="di-name">Pre-call Prep</span><span class="di-status">● Attivo</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="input-area">
+    </div><!-- end agentView -->
+    <div class="input-area" id="inputArea">
       <div class="quick-prompts" id="quickPrompts">
         <div class="qp" onclick="sendQuick(this)">🤖 Qualifica un lead</div>
         <div class="qp" onclick="sendQuick(this)">📧 Crea un messaggio outreach</div>
@@ -788,10 +927,108 @@ let conversationHistory = [];
 let apiKey = localStorage.getItem('mx_api_key') || '';
 
 // ── Init: show setup if no key ──
+// ── Conversation storage ──
+function saveConversation(agentId, history) {
+  try { localStorage.setItem("mx_conv_" + agentId, JSON.stringify(history)); } catch(e) {}
+}
+function loadConversation(agentId) {
+  try { return JSON.parse(localStorage.getItem("mx_conv_" + agentId) || "[]"); } catch(e) { return []; }
+}
+
+// ── KPI storage ──
+function saveKpi(key, val) {
+  try { localStorage.setItem("mx_kpi_" + key, val); } catch(e) {}
+}
+function loadKpi(key) {
+  try { return localStorage.getItem("mx_kpi_" + key) || "—"; } catch(e) { return "—"; }
+}
+
+function showKpiInput(key) {
+  const labels = { clienti: "Clienti attivi", revenue: "Revenue mese (es. €1.200)", lead: "Lead in pipeline", performance: "Performance totale (es. +78%)" };
+  const val = prompt("Aggiorna " + labels[key] + ":", loadKpi(key) === "—" ? "" : loadKpi(key));
+  if (val !== null && val.trim() !== "") {
+    saveKpi(key, val.trim());
+    updateDashboardKpis();
+  }
+}
+
+function updateDashboardKpis() {
+  document.getElementById("kpiClienti").textContent = loadKpi("clienti");
+  document.getElementById("kpiRevenue").textContent = loadKpi("revenue");
+  document.getElementById("kpiLead").textContent = loadKpi("lead");
+  document.getElementById("kpiPerf").textContent = loadKpi("performance") !== "—" ? loadKpi("performance") : "+78%";
+}
+
+// ── Dashboard ──
+function showDashboard() {
+  document.getElementById("dashboardView").style.display = "flex";
+  document.getElementById("dashboardView").style.flexDirection = "column";
+  document.getElementById("agentView").style.display = "none";
+  document.getElementById("inputArea").style.display = "none";
+  document.querySelectorAll(".agent-btn").forEach(b => b.classList.remove("active"));
+  updateDashboardKpis();
+  updateDashGreeting();
+  checkMondayBriefing();
+}
+
+function updateDashGreeting() {
+  const now = new Date();
+  const h = now.getHours();
+  const greeting = h < 12 ? "Buongiorno" : h < 18 ? "Buon pomeriggio" : "Buonasera";
+  const days = ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
+  const months = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  document.getElementById("dashGreeting").textContent = greeting + " 👋";
+  document.getElementById("dashDate").textContent = days[now.getDay()] + " " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear();
+}
+
+// ── Auto CEO Briefing ogni lunedì ──
+function checkMondayBriefing() {
+  const now = new Date();
+  const isMonday = now.getDay() === 1;
+  const lastBriefing = localStorage.getItem("mx_last_briefing");
+  const todayStr = now.toDateString();
+  
+  if (isMonday && lastBriefing !== todayStr && apiKey) {
+    document.getElementById("briefingBox").classList.remove("hidden");
+    document.getElementById("briefingText").textContent = "Generazione briefing in corso...";
+    generateAutoBriefing();
+  } else if (isMonday) {
+    document.getElementById("briefingBox").classList.remove("hidden");
+    document.getElementById("briefingText").textContent = "È lunedì! Vai sul CEO Briefing per il report settimanale →";
+  }
+}
+
+async function generateAutoBriefing() {
+  const kpiClienti = loadKpi("clienti");
+  const kpiRevenue = loadKpi("revenue");
+  const kpiLead = loadKpi("lead");
+  const kpiPerf = loadKpi("performance");
+  
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": apiKey },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-5",
+        max_tokens: 500,
+        system: "Sei il CEO Briefing Agent di MirrorX. Genera un briefing executive breve per lunedì mattina.",
+        messages: [{ role: "user", content: "Genera il briefing di lunedì con questi dati: Clienti attivi: " + kpiClienti + ", Revenue mese: " + kpiRevenue + ", Lead pipeline: " + kpiLead + ", Performance: " + kpiPerf + ". Formato breve con emoji, max 5 punti chiave." }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.[0]?.text || "Errore generazione briefing.";
+    const formatted = text.split("\n").join("<br>").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"); document.getElementById("briefingText").innerHTML = formatted;
+    localStorage.setItem("mx_last_briefing", new Date().toDateString());
+  } catch(e) {
+    document.getElementById("briefingText").textContent = "Errore nella generazione. Vai sul CEO Briefing Agent.";
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   if (apiKey) {
     hideSetup();
     updateApiStatus(true);
+    showDashboard();
   } else {
     document.getElementById('setupOverlay').classList.remove('hidden');
   }
@@ -803,6 +1040,16 @@ window.addEventListener('DOMContentLoaded', () => {
     const btn = e.target.closest('.agent-btn');
     if (!btn) return;
     const oc = btn.getAttribute('onclick') || '';
+    const match = oc.match(/switchAgent\(.([\w]+).\)/);
+    if (match) switchAgent(match[1]);
+  }, { passive: false });
+
+  // Touch for dashboard agents  
+  document.addEventListener('touchend', function(e) {
+    const da = e.target.closest('.dash-agent');
+    if (!da) return;
+    e.preventDefault();
+    const oc = da.getAttribute('onclick') || '';
     const match = oc.match(/switchAgent\(.([\w]+).\)/);
     if (match) switchAgent(match[1]);
   }, { passive: false });
@@ -997,8 +1244,23 @@ Quando dispatchi un task a un agente, dillo chiaramente.`
 // ── Switch agent ──
 function switchAgent(agentId) {
   if (!agents[agentId]) { console.log('Agent not found:', agentId); return; }
+  
+  // Save current conversation before switching
+  if (currentAgent && conversationHistory.length > 0) {
+    saveConversation(currentAgent, conversationHistory);
+  }
+
+  // Show agent view, hide dashboard
+  document.getElementById("dashboardView").style.display = "none";
+  document.getElementById("agentView").style.display = "flex";
+  document.getElementById("agentView").style.flexDirection = "column";
+  document.getElementById("agentView").style.flex = "1";
+  document.getElementById("agentView").style.overflow = "hidden";
+  document.getElementById("inputArea").style.display = "block";
+
   currentAgent = agentId;
-  conversationHistory = [];
+  // Load saved conversation
+  conversationHistory = loadConversation(agentId);
   const a = agents[agentId];
   document.getElementById('agentAvatar').textContent = a.icon;
   document.getElementById('agentName').textContent = a.name;
@@ -1013,9 +1275,23 @@ function switchAgent(agentId) {
     if (oc.includes(agentId)) b.classList.add('active');
   });
 
-  // Clear messages and add welcome
+  // Clear messages and restore or show welcome
   const msgs = document.getElementById('messages');
   msgs.innerHTML = '';
+  
+  // If there are saved messages, restore them
+  if (conversationHistory.length > 0) {
+    // Rebuild messages from history
+    conversationHistory.forEach((msg, i) => {
+      if (msg.role === 'user') {
+        addMessage('user', msg.content, 'Tu', '👤');
+      } else if (msg.role === 'assistant' && i > 0) {
+        addMessage('agent', msg.content, a.name, a.icon);
+      }
+    });
+    msgs.scrollTop = msgs.scrollHeight;
+    return;
+  }
 
   const welcomes = {
     sales: `Ciao! Sono il tuo <strong>Sales Manager</strong> di MirrorX.<br><br>Gestisco tutto il funnel di acquisizione. Posso qualificare lead, aiutarti con l'outreach o prepararti per una chiamata. Come posso aiutarti?`,
@@ -1139,6 +1415,7 @@ async function sendMessage(text) {
     }
 
     conversationHistory.push({ role: 'assistant', content: reply });
+    saveConversation(currentAgent, conversationHistory);
 
     hideTyping();
 
